@@ -1,0 +1,25 @@
+{
+  "name": "taller-practico-js-videogames",
+  "version": "1.0.0",
+  "description": "Servidor https con node y express videogame",
+  "main": "game.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zistaeb/taller-practico-JS.git"
+  },
+  "author": "Zistaeb",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zistaeb/taller-practico-JS/issues"
+  },
+  "homepage": "https://github.com/Zistaeb/taller-practico-JS#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "fs": "^0.0.1-security",
+    "https": "^1.0.0"
+  }
+}

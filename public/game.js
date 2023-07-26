@@ -1,5 +1,9 @@
 const canvas = document.querySelector('#game');
 const game = canvas.getContext('2d');
+const btnUp = document.querySelector('#up');
+const btnLeft = document.querySelector('#left');
+const btnRight = document.querySelector('#right');
+const btnDown = document.querySelector('#down');
 let elementsSize = 0;
 let canvasSize = 0;
 
@@ -27,7 +31,7 @@ function startGame () {
     game.font = elementsSize + 'px Verdana';
     game.textAlign = 'end';
 
-    const map = maps[2];
+    const map = maps[0];
     const mapRows = map.trim().split('\n');
     const mapRowCols = mapRows.map(row => row.trim().split('')); //arreglo bidimensional
     console.log(map, mapRows, mapRowCols);
@@ -60,3 +64,32 @@ function startGame () {
     //game.fillText('Platzi', 25, 25);
 };
 
+window.addEventListener('keydown', moveByKeys);
+
+btnUp.addEventListener('click', moveUp);
+btnLeft.addEventListener('click', moveLeft);
+btnRight.addEventListener('click', moveRight);
+btnDown.addEventListener('click', moveDown);
+
+function moveByKeys(event) {
+    if (event.key == "ArrowUp") moveUp();
+    else if (event.key == "ArrowLeft") moveLeft();
+    else if(event.key == "ArrowRight") moveRight();
+    else if (event.key == "ArrowDown") moveDown();
+};
+
+function moveUp() {
+    console.log('Me quiero mover hacia arriba');
+};
+
+function moveLeft() {
+    console.log('Me quiero mover hacia izquierda');
+};
+
+function moveRight() {
+    console.log('Me quiero mover hacia derecha');
+};
+
+function moveDown() {
+    console.log('Me quiero mover hacia abajo');
+};

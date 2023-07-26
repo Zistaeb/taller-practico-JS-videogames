@@ -27,16 +27,25 @@ function startGame () {
     game.font = elementsSize + 'px Verdana';
     game.textAlign = 'end';
 
-    const map = maps[1];
+    const map = maps[2];
     const mapRows = map.trim().split('\n');
-    const mapRowCols = mapRows.map(row => row.trim().split(''));
+    const mapRowCols = mapRows.map(row => row.trim().split('')); //arreglo bidimensional
     console.log(map, mapRows, mapRowCols);
 
-    for(let row = 1; row <=10; row++ ) {
+    mapRowCols.forEach( (row, rowIndex) => {
+        row.forEach((col, colIndex) => {
+            const emoji = emojis[col];
+            const posx = elementsSize * (colIndex + 1);
+            const posy = elementsSize * (rowIndex + 1);
+            game.fillText(emoji, posx, posy);
+        });
+    });
+
+    /*for(let row = 1; row <=10; row++ ) {
         for (let col = 1; col <= 10; col++) {
             game.fillText(emojis[mapRowCols[row - 1][col - 1]], elementsSize * col, elementsSize * row);
         }
-    };
+    };*/
 
     
      //window.innerHeight
@@ -50,3 +59,4 @@ function startGame () {
     //game.textAlign = 'left';                  //start, end, center, rigth, left
     //game.fillText('Platzi', 25, 25);
 };
+

@@ -4,6 +4,12 @@ const btnUp = document.querySelector('#up');
 const btnLeft = document.querySelector('#left');
 const btnRight = document.querySelector('#right');
 const btnDown = document.querySelector('#down');
+
+const playerPosition = {                    // Igual a objeto que tendra 2 posiciones
+    x: undefined,
+    y: undefined
+};
+
 let elementsSize = 0;
 let canvasSize = 0;
 
@@ -39,11 +45,20 @@ function startGame () {
     mapRowCols.forEach( (row, rowIndex) => {
         row.forEach((col, colIndex) => {
             const emoji = emojis[col];
-            const posx = elementsSize * (colIndex + 1);
-            const posy = elementsSize * (rowIndex + 1);
-            game.fillText(emoji, posx, posy);
+            const posX = elementsSize * (colIndex + 1);
+            const posY = elementsSize * (rowIndex + 1);
+
+            if (col == "O") {
+                playerPosition.x = posX, 
+                playerPosition.y = posY;
+                console.log({playerPosition});
+            };
+
+            game.fillText(emoji, posX, posY);
         });
     });
+
+    movePlayer();
 
     /*for(let row = 1; row <=10; row++ ) {
         for (let col = 1; col <= 10; col++) {
@@ -64,6 +79,10 @@ function startGame () {
     //game.fillText('Platzi', 25, 25);
 };
 
+function movePlayer() {
+    game.fillText(emojis["PLAYER"], playerPosition.x, playerPosition.y);
+}
+
 window.addEventListener('keydown', moveByKeys);
 
 btnUp.addEventListener('click', moveUp);
@@ -80,6 +99,8 @@ function moveByKeys(event) {
 
 function moveUp() {
     console.log('Me quiero mover hacia arriba');
+    playerPosition.y -= elementsSize;
+    movePlayer();
 };
 
 function moveLeft() {

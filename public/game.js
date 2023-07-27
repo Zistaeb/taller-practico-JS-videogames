@@ -4,6 +4,7 @@ const btnUp = document.querySelector('#up');
 const btnLeft = document.querySelector('#left');
 const btnRight = document.querySelector('#right');
 const btnDown = document.querySelector('#down');
+const spanLives = document.querySelector("#lives");
 
 const playerPosition = {                    // Igual a objeto que tendra 2 posiciones
     x: undefined,
@@ -56,6 +57,8 @@ function startGame () {
     const mapRows = map.trim().split('\n');
     const mapRowCols = mapRows.map(row => row.trim().split('')); //arreglo bidimensional
     console.log(map, mapRows, mapRowCols);
+
+    showLives();
 
     enemyPositions = [];
     game.clearRect(0, 0, canvasSize, canvasSize);
@@ -138,8 +141,6 @@ function levelWin () {
 function levelFail () {
     console.log("Chocaste contra un enemigo :(");
     lives--;
-
-    console.log(lives);
     
     if (lives <= 0) {
         level = 0;
@@ -154,6 +155,14 @@ function levelFail () {
 function gameWin (params) {
     console.log('Terminaste el juego!!!');
 };
+
+function showLives() {
+    const heartsArrays = Array(lives).fill(emojis['HEART']);           //[1,2,3]
+    //console.log(heartsArrays);
+
+    spanLives.innerHTML = "";
+    heartsArrays.forEach(heart => spanLives.append(heart));
+}
 
 window.addEventListener('keydown', moveByKeys);
 

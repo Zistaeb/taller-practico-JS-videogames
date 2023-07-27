@@ -17,8 +17,9 @@ const giftPosition = {
 
 let enemyPositions = [];
 
-let elementsSize = 0;
-let canvasSize = 0;
+let elementsSize;
+let canvasSize;
+let level = 0;
 
 window.addEventListener('load', setCanvasSize);
 window.addEventListener('resize', setCanvasSize);
@@ -44,7 +45,13 @@ function startGame () {
     game.font = elementsSize + 'px Verdana';
     game.textAlign = 'end';
 
-    const map = maps[0];
+    const map = maps[level];
+
+    if (!map) {                                        //Si no hay ninguna otra posicion, dentro del arreglo mapa
+        gameWin();
+        return;
+    };
+
     const mapRows = map.trim().split('\n');
     const mapRowCols = mapRows.map(row => row.trim().split('')); //arreglo bidimensional
     console.log(map, mapRows, mapRowCols);
@@ -105,7 +112,7 @@ function movePlayer() {
     const giftCollision = giftCollisionX && giftCollisionY;
 
     if (giftCollision) {
-        console.log("Subiste de nivel!!!");
+        levelWin();
     };
 
     const enemyCollision = enemyPositions.find((enemy) => {
@@ -120,6 +127,16 @@ function movePlayer() {
 
     game.fillText(emojis["PLAYER"], playerPosition.x, playerPosition.y);
 }
+
+function levelWin () {
+    console.log("Subiste de nivel :)");
+    level++;
+    startGame();
+};
+
+function gameWin (params) {
+    console.log('Terminaste el juego!!!');
+};
 
 window.addEventListener('keydown', moveByKeys);
 

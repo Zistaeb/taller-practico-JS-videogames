@@ -5,6 +5,7 @@ const btnLeft = document.querySelector('#left');
 const btnRight = document.querySelector('#right');
 const btnDown = document.querySelector('#down');
 const spanLives = document.querySelector("#lives");
+const spanTime = document.querySelector('#time');
 
 const playerPosition = {                    // Igual a objeto que tendra 2 posiciones
     x: undefined,
@@ -22,6 +23,9 @@ let elementsSize;
 let canvasSize;
 let level = 0;
 let lives = 3;
+let timeStart;
+let timePlayer;
+let timeInterval;
 
 window.addEventListener('load', setCanvasSize);
 window.addEventListener('resize', setCanvasSize);
@@ -52,6 +56,11 @@ function startGame () {
     if (!map) {                                        //Si no hay ninguna otra posicion, dentro del arreglo mapa
         gameWin();
         return;
+    };
+
+    if(!timeStart) {
+        timeStart = Date.now();
+        timeInterval = setInterval(showTime, 100);
     };
 
     const mapRows = map.trim().split('\n');
@@ -144,7 +153,8 @@ function levelFail () {
     
     if (lives <= 0) {
         level = 0;
-        lives = 3;   
+        lives = 3;  
+        timeStart = undefined; 
     }; 
 
     playerPosition.x = undefined;
@@ -154,6 +164,7 @@ function levelFail () {
 
 function gameWin (params) {
     console.log('Terminaste el juego!!!');
+    clearInterval(timeInterval);
 };
 
 function showLives() {
@@ -162,7 +173,11 @@ function showLives() {
 
     spanLives.innerHTML = "";
     heartsArrays.forEach(heart => spanLives.append(heart));
-}
+};
+
+function showTime () {
+    spanTime.innerHTML = Date.now() - timeStart;
+};
 
 window.addEventListener('keydown', moveByKeys);
 

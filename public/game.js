@@ -32,6 +32,10 @@ let timeInterval;
 window.addEventListener('load', setCanvasSize);
 window.addEventListener('resize', setCanvasSize);
 
+function fixNumber(n) {
+    return Number(n.toFixed(2));
+};
+
 function setCanvasSize() {
     if(window.innerHeight > window.innerWidth) {
         canvasSize = Math.floor(window.innerWidth * 0.8);
@@ -39,16 +43,22 @@ function setCanvasSize() {
         canvasSize = Math.floor(window.innerHeight * 0.8);
     };
 
+    canvasSize = Number(canvasSize.toFixed(0));
+
     canvas.setAttribute('width', canvasSize);
     canvas.setAttribute('height', canvasSize);
 
     elementsSize = canvasSize/10;
+
+    playerPosition.x = undefined;
+    playerPosition.y = undefined;
 
     startGame();
 };
 
 function startGame () {
     console.log({canvasSize, elementsSize});
+    console.log(window.innerWidth, window.innerHeight);
 
     game.font = elementsSize + 'px Verdana';
     game.textAlign = 'end';
@@ -83,7 +93,7 @@ function startGame () {
 
             if (col == "O") {
                 if (!playerPosition.x && !playerPosition.y) {
-                    playerPosition.x = posX, 
+                    playerPosition.x = posX; 
                     playerPosition.y = posY;
                     console.log({playerPosition}); 
                 };
@@ -123,8 +133,8 @@ function startGame () {
 };
 
 function movePlayer() {
-    const giftCollisionX = playerPosition.x.toFixed(3) == giftPosition.x.toFixed(3);
-    const giftCollisionY = playerPosition.y.toFixed(3) == giftPosition.y.toFixed(3);
+    const giftCollisionX = playerPosition.x.toFixed(0) == giftPosition.x.toFixed(0);
+    const giftCollisionY = playerPosition.y.toFixed(0) == giftPosition.y.toFixed(0);
     const giftCollision = giftCollisionX && giftCollisionY;
 
     if (giftCollision) {
@@ -132,8 +142,8 @@ function movePlayer() {
     };
 
     const enemyCollision = enemyPositions.find((enemy) => {
-        const enemyCollisionX =  enemy.x == playerPosition.x.toFixed(3);
-        const enemyCollisionY =  enemy.y == playerPosition.y.toFixed(3);
+        const enemyCollisionX =  enemy.x == playerPosition.x.toFixed(0);
+        const enemyCollisionY =  enemy.y == playerPosition.y.toFixed(0);
         return enemyCollisionX && enemyCollisionY;
     });
 

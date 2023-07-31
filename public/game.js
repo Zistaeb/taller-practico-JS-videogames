@@ -186,8 +186,10 @@ function gameWin (params) {
         if (recordTime >= playerTime) {
             localStorage.setItem("record_time", playerTime);
             pResult.innerHTML = "Superaste el reto :)";
+            clearTimeout("#time", undefined);
         } else {
             pResult.innerHTML = "Lo siento, no superaste el reto :(";
+            clearTimeout("#time", undefined);
         };
     } else {
         localStorage.setItem("record_time", playerTime);
